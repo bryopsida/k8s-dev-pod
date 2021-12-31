@@ -24,6 +24,13 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+      - name: home
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-home
+      - name: dropbear
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-dropbear
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -36,6 +43,13 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: home
+              mountPath: /home/developer
+              readOnly: false
+            - name: dropbear
+              mountPath: /etc/dropbear
+              readOnly: false
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
