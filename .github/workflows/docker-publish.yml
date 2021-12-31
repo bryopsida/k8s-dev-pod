@@ -61,7 +61,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          dockerfile: ${{ env.DOCKER_FILE }}
+          file: ${{ env.DOCKER_FILE }}
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
