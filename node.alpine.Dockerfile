@@ -1,5 +1,5 @@
 FROM node:lts-alpine
-RUN apk add curl dropbear sudo bash git make g++ python3 wget unzip zip musl libgcc libstdc++
+RUN apk add curl dropbear sudo bash git make g++ python3 wget unzip zip musl libgcc libstdc++ htop zsh sed setserial gzip unzip busybox gcompat
 
 # SSH User
 RUN addgroup developer
