@@ -10,6 +10,6 @@ RUN echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && chmod
 RUN adduser developer shadow
 
 COPY ./Entrypoint.sh /usr/local/bin/entrypoint.sh
-EXPOSE 22
+EXPOSE 3022/tcp
 USER developer
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]

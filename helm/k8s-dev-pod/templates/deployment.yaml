@@ -39,7 +39,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: ssh
-              containerPort: 22
+              containerPort: 3022
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
