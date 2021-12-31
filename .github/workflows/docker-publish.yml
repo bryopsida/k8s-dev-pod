@@ -24,7 +24,7 @@ env:
 jobs:
   build:
     env: 
-      IMAGE_NAME: ${{ fromJSON(matrix.container).image }}
+      IMAGE_NAME: bryopsida/${{ fromJSON(matrix.container).image }}
       DOCKER_FILE: ${{ fromJSON(matrix.container).dockerfile }}
     strategy:
       fail-fast: false
