@@ -11,4 +11,4 @@ sudo chown -R developer:developer /etc/dropbear
 touch /etc/dropbear/authorized_keys
 chmod 600 /etc/dropbear/authorized_keys 
 
-exec dropbear -R -w -F -E -p 22 -P /var/run/dropbear.pid
+exec dropbear -R -w -F -E -p 3022 -P /var/run/dropbear.pid
