@@ -5,7 +5,7 @@ on:
       - main
     paths:
       - "charts/**"
-      - ".github/chart-release.yml"
+      - ".github/workflows/chart-release.yml"
 jobs:
   release:
     runs-on: ubuntu-latest
