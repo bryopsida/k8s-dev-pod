@@ -12,7 +12,7 @@ on:
   pull_request:
     branches: [ main ]
     paths:
-      - '*.Dockerfile'
+      - 'Dockerfile'
       - '.github/workflows/docker-publish.yml'
       - 'Entrypoint.sh'
 env:
@@ -20,12 +20,8 @@ env:
 jobs:
   build:
     env: 
-      IMAGE_NAME: bryopsida/${{ fromJSON(matrix.container).image }}
-      DOCKER_FILE: ${{ fromJSON(matrix.container).dockerfile }}
-    strategy:
-      fail-fast: false
-      matrix:
-        container: ['{"dockerfile":"node.Dockerfile", "image": "k8s-dev-pod-nodejs"}']
+      IMAGE_NAME: k8s-dev-pod
+      DOCKER_FILE: Dockerfile
     runs-on: ubuntu-latest
     permissions:
       contents: read

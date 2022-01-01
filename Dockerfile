@@ -6,6 +6,12 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 RUN install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
 RUN apt-get -y install nodejs
+RUN wget https://packages.microsoft.com/config/ubuntu/21.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb
+RUN apt-get update; \
+  apt-get install -y apt-transport-https && \
+  apt-get update && \
+  apt-get install -y dotnet-sdk-6.0
+RUN apt-get install -y default-jdk
 
 # SSH User
 RUN useradd -ms /bin/bash developer
