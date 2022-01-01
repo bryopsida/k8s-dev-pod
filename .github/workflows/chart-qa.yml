@@ -1,0 +1,91 @@
+name: Lint and Test Charts
+on:
+  pull_request:
+    paths:
+      - 'charts/**'
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  lint-chart:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        with:
+          fetch-depth: 0
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.7.1
+      - uses: actions/setup-python@dc73133d4da04e56a135ae2246682783cc7c7cb6
+        with:
+          python-version: 3.7
+      - name: Install chart-testing
+        uses: helm/chart-testing-action@5f16c27cf7a4fa9c776ff73734df3909b2b65127
+        with:
+          version: v3.4.0
+      - name: Run lint
+        run: ct lint --config .github/ct.yaml
+  lint-docs:
+    runs-on: ubuntu-latest
+    needs: lint-chart
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+      - name: Run helm-docs
+        run: .github/helm-docs.sh
+  kubeval-chart:
+    runs-on: ubuntu-latest
+    needs:
+      - lint-chart
+      - lint-docs
+    strategy:
+      matrix:
+        k8s:
+          - v1.18.20
+          - v1.19.12
+          - v1.20.8
+          - v1.21.2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        with:
+          fetch-depth: 0
+      - name: Run kubeval
+        env:
+          KUBERNETES_VERSION: ${{ matrix.k8s }}
+        run: .github/kubeval.sh
+  install-chart:
+    name: install-chart
+    runs-on: ubuntu-latest
+    needs:
+      - lint-chart
+      - lint-docs
+      - kubeval-chart
+    strategy:
+      matrix:
+        k8s:
+          - v1.18.19 
+          - v1.19.11 
+          - v1.20.7 
+          - v1.21.2 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 
+        with:
+          fetch-depth: 0
+
+      - name: Create kind ${{ matrix.k8s }} cluster
+        uses: helm/kind-action@94729529f85113b88f4f819c17ce61382e6d8478 
+        with:
+          node_image: kindest/node:${{ matrix.k8s }}
+          version: v0.11.1 
+
+      - name: Install chart-testing
+        uses: helm/chart-testing-action@5f16c27cf7a4fa9c776ff73734df3909b2b65127 
+        with:
+          version: v3.4.0 
+
+      - name: Run chart install
+        run: ct install --config .github/ct.yaml
