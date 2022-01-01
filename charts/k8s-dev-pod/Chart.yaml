@@ -2,5 +2,5 @@ apiVersion: v2
 name: k8s-dev-pod
 description: A Helm chart for deploying a dev environment inside a K8S cluster that is compatible with Visual Studio Code remote targets
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: "0.1.0"
