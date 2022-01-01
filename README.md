@@ -23,7 +23,7 @@ Your password is: <your-random-password-here>
 ```
 
 ### Forward the SSH connection
-While using the environment you will need to run a port forward. `kubectl -n <your-namespace> port-forward pod/<your-pod-name> 3022:3022
+While using the environment you will need to run a port forward. `kubectl -n <your-namespace> port-forward pod/<your-pod-name> 3022:3022`
 
 ### Connect
 `ssh -p 3022 developer@localhost`, you will be prompted for a password, enter the password fetched earlier. From here you can setup a ssh configuration using public key authentication `ssh-copy-id` etc.
