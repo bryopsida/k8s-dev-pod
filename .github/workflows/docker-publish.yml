@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        container: ['{"dockerfile":"node.alpine.Dockerfile", "image": "k8s-dev-pod-nodejs"}']
+        container: ['{"dockerfile":"node.Dockerfile", "image": "k8s-dev-pod-nodejs"}']
     runs-on: ubuntu-latest
     permissions:
       contents: read
