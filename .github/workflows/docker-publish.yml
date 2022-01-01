@@ -6,7 +6,7 @@ on:
     branches: [ main ]
     tags: [ 'v*.*.*' ]
     paths:
-      - '*.Dockerfile'
+      - 'Dockerfile'
       - '.github/workflows/docker-publish.yml'
       - 'Entrypoint.sh'
   pull_request:
