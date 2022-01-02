@@ -8,14 +8,24 @@ RUN echo "LANG=en_US.UTF-8" >> /etc/environment
 
 
 RUN apt-get update && \
-  apt-get install -y curl dropbear-bin sudo gcc g++ make python3 zsh vim wget htop nano openssh-client && \
-  apt-get install -y --no-install-recommends git
+  apt-get install -y curl dropbear-bin sudo gcc g++ make python3 zsh vim wget htop nano openssh-client gnupg2 ca-certificates apt-transport-https && \
+  apt-get install -y --no-install-recommends git  
 
-RUN curl -fsSL -o /tmp/get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && \
-  chmod 700 /tmp/get_helm.sh && \
-  /tmp/get_helm.sh
-RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/$(uname -m)/kubectl"
-RUN install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+# Helm
+RUN curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -  && \
+  echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list && \
+  apt-get update && \
+  apt-get install -y helm
+
+
+# Kubectl
+RUN apt-get update && \
+  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
+  apt-get update && \
+  apt-get install -y kubectl
+
+
 RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh && \
   chmod +x nodesource_setup.sh && \
   ./nodesource_setup.sh && \
