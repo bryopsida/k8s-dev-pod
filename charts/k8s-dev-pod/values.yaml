@@ -5,3 +5,4 @@ image:
 homeSize: 20
 ingressEnabled: false
 ingressPort: 3022
+passwordLoginEnabled: true

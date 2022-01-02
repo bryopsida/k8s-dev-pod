@@ -40,6 +40,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: PASSWORD_LOGIN_ENABLED
+              value: "{{ .Values.passwordLoginEnabled }}"
           ports:
             - name: ssh
               containerPort: 3022
