@@ -7,7 +7,7 @@ spec:
   type: LoadBalancer
   ports:
   - name: ssh
-    protocol: UDP
+    protocol: TCP
     port: {{ .Values.ingressPort }}
     targetPort: 3022
   selector:
