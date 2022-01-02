@@ -1,5 +1,6 @@
 FROM ubuntu:focal
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends curl dropbear-bin sudo gcc g++ make python3 zsh vim wget htop nano git openssh-client
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y curl dropbear-bin sudo gcc g++ make python3 zsh vim wget htop nano openssh-client
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git
 
 RUN curl -fsSL -o /tmp/get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && chmod 700 /tmp/get_helm.sh && /tmp/get_helm.sh
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/$(uname -m)/kubectl"
