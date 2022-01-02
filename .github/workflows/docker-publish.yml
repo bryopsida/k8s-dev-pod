@@ -63,6 +63,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           platforms: linux/amd64,linux/arm64
           labels: ${{ steps.meta.outputs.labels }}
+          build-args:
+            COMMIT="${{ github.sha }}"
       - name: Sign the published Docker image
         if: ${{ github.event_name != 'pull_request' }}
         env:
