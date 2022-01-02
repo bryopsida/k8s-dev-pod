@@ -16,6 +16,9 @@ RUN apt-get install -y default-jdk
 RUN useradd -ms /bin/bash developer
 RUN echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && chmod 0440 /etc/sudoers.d/developer
 
+# set zsh shell
+RUN usermod -s /bin/zsh developer
+
 # Allow dropbear to read /etc/shadow for password authentication without running dropbear as root
 RUN adduser developer shadow
 
