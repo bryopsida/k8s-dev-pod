@@ -3,3 +3,5 @@ image:
   tag: main
   pullPolicy: Always
 homeSize: 20
+ingressEnabled: false
+ingressPort: 3022

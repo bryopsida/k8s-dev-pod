@@ -1,0 +1,15 @@
+{{- if .Values.ingressEnabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-ingress
+spec:
+  type: LoadBalancer
+  ports:
+  - name: ssh
+    protocol: UDP
+    port: {{ .Values.ingressPort }}
+    targetPort: 3022
+  selector:
+    {{- include "k8s-dev-pod.selectorLabels" . | nindent 6 }} 
+{{- end }}
