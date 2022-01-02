@@ -1,3 +1,5 @@
 image:
+  repo: ghcr.io/bryopsida/k8s-dev-pod
+  tag: main
   pullPolicy: Always
 homeSize: 20
