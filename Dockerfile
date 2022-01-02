@@ -1,4 +1,7 @@
 FROM ubuntu:focal
+RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+RUN echo "LANG=en_US.UTF-8" >> /etc/environment
+
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y curl dropbear-bin sudo gcc g++ make python3 zsh vim wget htop nano openssh-client
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git
 
