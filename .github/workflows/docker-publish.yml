@@ -20,7 +20,7 @@ env:
 jobs:
   build:
     env: 
-      IMAGE_NAME: k8s-dev-pod
+      IMAGE_NAME: bryopsida/k8s-dev-pod
       DOCKER_FILE: Dockerfile
     runs-on: ubuntu-latest
     permissions:
