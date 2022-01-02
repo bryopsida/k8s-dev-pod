@@ -45,6 +45,7 @@ RUN usermod -s /bin/zsh developer
 RUN adduser developer shadow
 
 COPY ./Entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY ./PrepareHome.sh /usr/local/bin/prepare_home.sh
 EXPOSE 3022/tcp
 USER developer
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
