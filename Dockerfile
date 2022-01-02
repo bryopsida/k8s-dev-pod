@@ -25,7 +25,7 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh && \
 RUN apt-get install -y default-jdk
 
 # SSH User
-RUN useradd -ms /bin/bash developer
+RUN useradd -ms /bin/zsh developer
 RUN echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && chmod 0440 /etc/sudoers.d/developer
 
 # set zsh shell
