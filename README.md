@@ -2,7 +2,7 @@
 
 ## What is this?
 
-This chart deploys a container containing common dev tools. It uses a dropbear ssh server so users can connect Visual Studio Code or IntelliJ to the pod as a remote environment. This allows developers to work inside a cluster in a very similiar fashion to how they would work locally. The dropbear port is bound to 3022, it runs as the developer user, not root. On each start of the container the developer user is changed randomly and logged with the intent that once initially accessed developers switch to public key authentication. `/home/developer` and `/etc/dropbear` use PVCs and will survive updates/restarts, other changes such as `apt-get` installs will not.
+This chart deploys a container containing common dev tools. It uses a dropbear ssh server so users can connect Visual Studio Code or IntelliJ to the pod as a remote environment. This allows developers to work inside a cluster in a very similiar fashion to how they would work locally. The dropbear port is bound to 3022, it runs as the developer user, not root. On each start of the container the developer user password is changed randomly and logged with the intent that once initially accessed developers switch to public key authentication. `/home/developer` and `/etc/dropbear` use PVCs and will survive updates/restarts, other changes such as `apt-get` installs will not.
 
 ## How to deploy 
 
