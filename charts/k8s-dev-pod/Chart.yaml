@@ -4,3 +4,5 @@ description: A Helm chart for deploying a dev environment inside a K8S cluster t
 type: application
 version: 0.1.7
 appVersion: "0.1.0"
+maintainers:
+  - name: Bryopsida
