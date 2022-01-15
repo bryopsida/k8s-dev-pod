@@ -43,6 +43,9 @@ spec:
           env:
             - name: PASSWORD_LOGIN_ENABLED
               value: "{{ .Values.passwordLoginEnabled }}"
+            {{- if .Values.env }}
+            {{- toYaml .Values.env | nindent 12 }}
+            {{- end }}
           ports:
             - name: ssh
               containerPort: 3022
