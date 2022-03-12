@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: '35 22 * * 0'
 jobs:
-  Anchore-Build-Scan:
+  Trivy-Build-Scan:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout the code
