@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:impish
 ARG COMMIT=""
 ENV COMMIT_SHA=${COMMIT}
 ENV DEBIAN_FRONTEND=noninteractive
