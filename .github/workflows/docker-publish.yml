@@ -36,21 +36,21 @@ jobs:
           platforms: all
       - name: Install cosign
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@bb61838e7ee5bf314f85f2e219b3706835fa6306
+        uses: sigstore/cosign-installer@536b37ec5d5b543420bdfd9b744c5965bd4d8730
         with:
           cosign-release: 'v1.4.0'
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
       - name: Log into registry ${{ env.REGISTRY }}
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7
+        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@f2a13332ac1ce8c0a71aeac48a150dbb1838ab67
+        uses: docker/metadata-action@69f6fc9d46f2f8bf0d5491e4aabe0bb8c6a4678a
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
