@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install Helm
-        uses: azure/setup-helm@v3.0
+        uses: azure/setup-helm@v3.1
         with:
           version: v3.7.1
       - uses: actions/setup-python@c474c82340438924daab9282d07300bfe7e3692d
