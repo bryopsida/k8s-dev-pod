@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: 3.7
       - name: Install chart-testing
-        uses: helm/chart-testing-action@6930ae8e9b30df5b66b36af291de4577962051b5
+        uses: helm/chart-testing-action@09ed88797198755e5031f25be13da255e7e33aad
         with:
           version: v3.4.0
       - name: Run lint
@@ -83,7 +83,7 @@ jobs:
           version: v0.11.1 
 
       - name: Install chart-testing
-        uses: helm/chart-testing-action@6930ae8e9b30df5b66b36af291de4577962051b5 
+        uses: helm/chart-testing-action@09ed88797198755e5031f25be13da255e7e33aad 
         with:
           version: v3.4.0 
 
