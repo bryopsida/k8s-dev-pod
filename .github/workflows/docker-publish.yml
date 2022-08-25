@@ -36,7 +36,7 @@ jobs:
           platforms: all
       - name: Install cosign
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@8d0fee40fd011ad052c0fed30c58d35203e9d130
+        uses: sigstore/cosign-installer@14d43345ff50608baaa37893f4822c406ed470a9
         with:
           cosign-release: 'v1.4.0'
       - name: Setup Docker buildx
