@@ -1,4 +1,4 @@
-name: Publish Containers
+name: Publish Image
 on:
   schedule:
     - cron: '22 4 * * *'
@@ -15,63 +15,10 @@ on:
       - 'Dockerfile'
       - '.github/workflows/docker-publish.yml'
       - 'Entrypoint.sh'
-env:
-  REGISTRY: ghcr.io
 jobs:
   build:
-    env: 
-      IMAGE_NAME: bryopsida/k8s-dev-pod
-      DOCKER_FILE: Dockerfile
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@master
-        with:
-          platforms: all
-      - name: Install cosign
-        if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@f3c664df7af409cb4873aa5068053ba9d61a57b6
-        with:
-          cosign-release: 'v1.4.0'
-      - name: Setup Docker buildx
-        uses: docker/setup-buildx-action@f5bc16b105017f86f22b81bfbf9e8f025a70d3ca
-      - name: Log into registry ${{ env.REGISTRY }}
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@21f251affc0769ccac8a1cf17e937592fb492337
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@69f6fc9d46f2f8bf0d5491e4aabe0bb8c6a4678a
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=schedule
-            type=ref,event=branch
-            type=ref,event=pr
-            type=sha
-      - name: Build and push Docker image
-        id: build-and-push
-        uses: docker/build-push-action@c84f38281176d4c9cdb1626ffafcd6b3911b5d94
-        with:
-          file: ${{ env.DOCKER_FILE }}
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          platforms: linux/amd64,linux/arm64
-          labels: ${{ steps.meta.outputs.labels }}
-          build-args:
-            COMMIT="${{ github.sha }}"
-      - name: Sign the published Docker image
-        if: ${{ github.event_name != 'pull_request' }}
-        env:
-          COSIGN_EXPERIMENTAL: "true"
-        run: cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
+    name: 'OCI'
+    uses: curium-rocks/flows/.github/workflows/oci-build-image.yml@main
+    with:
+      registry: ghcr.io/bryopsida
+      image_name: k8s-dev-pod
