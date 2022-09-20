@@ -1,4 +1,4 @@
-FROM ubuntu:impish
+FROM ubuntu:jammy
 ARG COMMIT=""
 ENV COMMIT_SHA=${COMMIT}
 ENV DEBIAN_FRONTEND=noninteractive
