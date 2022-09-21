@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'charts/**'
+      - '.github/workflows/chart-qa.yml'
 
 jobs:
   test:
