@@ -1,0 +1,50 @@
+{{- if .Values.tailscale.enabled }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tailscale-sa
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tailscale
+subjects:
+- kind: ServiceAccount
+  name: "tailscale-sa"
+roleRef:
+  kind: Role
+  name: tailscale
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tailscale
+  namespace: {{ .Release.Namespace }}
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["secrets"]
+  # Create can not be restricted to a resource name.
+  verbs: ["create"]
+- apiGroups: [""] # "" indicates the core API group
+  resourceNames: ["tailscale-state"]
+  resources: ["secrets"]
+  verbs: ["get", "update", "patch"]
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tailscale-state
+  namespace: {{ .Release.Namespace}}
+data:
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tailscale-auth
+  namespace: {{ .Release.Namespace}}
+data:
+  TS_AUTHKEY: {{ (required "When tailscale.enabled is true, a value must be provided for tailscale.authKey!" .Values.tailscale.authKey) | b64enc }}
+{{- end }}
