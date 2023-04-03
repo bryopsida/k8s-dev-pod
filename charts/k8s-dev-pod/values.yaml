@@ -6,3 +6,10 @@ homeSize: 20
 ingressEnabled: false
 ingressPort: 3022
 passwordLoginEnabled: true
+tailscale:
+  enabled: false
+  image:
+    repo: ghcr.io/tailscale/tailscale
+    tag: latest
+    pullPolicy: Always
+  authKey: ~

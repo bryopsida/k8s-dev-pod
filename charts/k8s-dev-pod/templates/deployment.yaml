@@ -34,6 +34,9 @@ spec:
       {{- if .Values.volumes }}
       {{- toYaml .Values.volumes | nindent 8 }}
       {{- end }}
+      {{- if .Values.tailscale.enabled }}
+      serviceAccountName: "tailscale-sa"
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -62,6 +65,26 @@ spec:
             {{- if .Values.volumeMounts }}
             {{- toYaml .Values.volumeMounts | nindent 12 }}
             {{- end }}
+        {{- if .Values.tailscale.enabled }}
+        - name: tailscale
+          image: "{{ .Values.tailscale.image.repo }}:{{ .Values.tailscale.image.tag }}"
+          imagePullPolicy: "{{ .Values.tailscale.image.pullPolicy }}"
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          env:
+            # Store the state in a k8s secret
+          - name: TS_KUBE_SECRET
+            value: "tailscale-state"
+          - name: TS_USERSPACE
+            value: "true"
+          - name: TS_AUTHKEY
+            valueFrom:
+              secretKeyRef:
+                name: tailscale-auth
+                key: TS_AUTHKEY
+                optional: true
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
