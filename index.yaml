@@ -3,6 +3,19 @@ entries:
   k8s-dev-pod:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-04-03T02:14:54.458880582Z"
+    description: A Helm chart for deploying a dev environment inside a K8S cluster
+      that is compatible with Visual Studio Code remote targets
+    digest: 3807f3624e38acb9b10edb276d59e422e7f4a129eb27fd9aaed5ab1ddd92dae4
+    maintainers:
+    - name: Bryopsida
+    name: k8s-dev-pod
+    type: application
+    urls:
+    - https://github.com/bryopsida/k8s-dev-pod/releases/download/k8s-dev-pod-0.2.0/k8s-dev-pod-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2022-09-21T15:14:40.696385257Z"
     description: A Helm chart for deploying a dev environment inside a K8S cluster
       that is compatible with Visual Studio Code remote targets
@@ -117,4 +130,4 @@ entries:
     urls:
     - https://github.com/bryopsida/k8s-dev-pod/releases/download/k8s-dev-pod-0.1.1/k8s-dev-pod-0.1.1.tgz
     version: 0.1.1
-generated: "2022-09-21T15:14:40.696427557Z"
+generated: "2023-04-03T02:14:54.45908358Z"
