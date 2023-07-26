@@ -17,6 +17,11 @@ on:
       - 'Entrypoint.sh'
 jobs:
   build:
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+      id-token: write
     name: 'OCI'
     uses: curium-rocks/flows/.github/workflows/oci-build-image.yml@main
     with:
