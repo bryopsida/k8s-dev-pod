@@ -1,4 +1,4 @@
-FROM ubuntu:kinetic
+FROM ubuntu:kinetic-20230624
 ARG COMMIT=""
 ENV COMMIT_SHA=${COMMIT}
 ENV DEBIAN_FRONTEND=noninteractive
