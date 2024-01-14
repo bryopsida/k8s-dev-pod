@@ -6,6 +6,15 @@ homeSize: 20
 ingressEnabled: false
 ingressPort: 3022
 passwordLoginEnabled: true
+# -- secret that is not managed by helm that holds the authorized keys property, when a value is specified this overrides using the authorizedKys
+existingAuthorizedKeySecretName: ~
+# existingAuthorizedKeySecretName: dev-pod-authorized-keys
+# -- property on the existing secret holding the authorized keys value
+existingAuthorizedKeySecretProperty: public-keys
+# -- A set of authorized public keys that will be trusted for logging in as developer, when specified this will overwrite the /etc/dropbear/authorized_keys contents with the value specified here on every pod-restart
+authorizedKeys: ~
+# authorizedKeys: |
+#   ssh-<key alg> <pub key> <client hostname>
 tailscale:
   enabled: false
   image:
@@ -13,3 +22,7 @@ tailscale:
     tag: latest
     pullPolicy: Always
   authKey: ~
+nvmInstallEnabled: true
+nvmVersion: v0.39.7
+sdkManInstallEnabled: true
+ohMyZshInstallEnabled: true

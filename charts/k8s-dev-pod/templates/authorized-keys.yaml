@@ -1,0 +1,10 @@
+{{- if and .Values.authorizedKeys (not .Values.existingAuthorizedKeySecretName) }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Release.Name }}-authorized-keys
+  labels:
+    {{- include "k8s-dev-pod.labels" . | nindent 4 }}
+data:
+  public-keys: {{ .Values.authorizedKeys | b64enc }}
+{{- end }}
