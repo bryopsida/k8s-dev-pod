@@ -61,6 +61,8 @@ spec:
               value: "{{ .Values.nvmVersion }}"
             - name: SDK_MAN_INSTALL_ENABLED
               value: "{{ .Values.sdkManInstallEnabled }}"
+            - name: OH_MY_ZSH_INSTALL_ENABLED
+              value: "{{ .Values.ohMyZshInstallEnabled }}"
             {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}

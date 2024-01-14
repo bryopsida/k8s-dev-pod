@@ -7,9 +7,9 @@ sudo chown -R developer:developer /etc/dropbear
 touch /etc/dropbear/authorized_keys
 chmod 600 /etc/dropbear/authorized_keys
 
-if [ -e /authorized_keys ] ; then
+if [ -e /authorized-keys ] ; then
   echo "Trusted Authorized keys exists, setting contents of /etc/dropbear/authorized_keys"
-  cat /authorized_keys > /etc/dropbear/authorized_keys
+  cat /authorized-keys > /etc/dropbear/authorized_keys
 fi
 
 sudo chown -R developer:developer /home/developer
@@ -18,11 +18,15 @@ sudo chown -R developer:developer /home/developer
 # this occurs on every container startup and is meant to be idempotent without overwriting existing files
 /usr/local/bin/prepare_home.sh
 
+ohmyzshEnabled=${OH_MY_ZSH_INSTALL_ENABLED:-"false"}
+if [[ $ohmyzshEnabled == "true" ]]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
 nvmEnabled=${NVM_INSTALL_ENABLED:-"false"}
-nvmVersion=${NVM_VERSION:-"v0.39.7"}
 if [[ $nvmEnabled == "true" ]]; then
   echo "NVM Install Enabled, ensuring nvm is installed for user"
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$nvmVersion/install.sh | bash
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 fi
 
 sdkManEnabled=${SDK_MAN_INSTALL_ENABLED:-"false"}

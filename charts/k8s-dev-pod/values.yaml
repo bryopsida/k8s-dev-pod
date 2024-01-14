@@ -1,7 +1,7 @@
 image:
   repo: ghcr.io/bryopsida/k8s-dev-pod
-  tag: local
-  pullPolicy: IfNotPresent
+  tag: main
+  pullPolicy: Always
 homeSize: 20
 ingressEnabled: false
 ingressPort: 3022
@@ -12,9 +12,9 @@ existingAuthorizedKeySecretName: ~
 # -- property on the existing secret holding the authorized keys value
 existingAuthorizedKeySecretProperty: public-keys
 # -- A set of authorized public keys that will be trusted for logging in as developer, when specified this will overwrite the /etc/dropbear/authorized_keys contents with the value specified here on every pod-restart
-# authorizedKeys: ~
-authorizedKeys: |
-  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCylR3YIlci/clTpaws1O5EthuqNQ10e8ITJ8WSPnLTcMI8N3gn33vQjda4z18LwnLEN8zGaDp+6LbnbI2A2twlNMdY2bBti8h1L+NfNvfLCuJFl1tCvYtn9mNjlj6qfwm4qOfgZY2IbvBFc9LntnJ2sBxO044qL5CeWSyibiWQdA5KdefZ055fuMozldFu9iRU1VEdpZJA6EfhCKW/z7mK26bZMJ6C9LvMaN2hfrfRtT+/FeRJrdmiMmE0Q109fkc2LT7uYE+FQTBKOaw0FS+X7PTRBdmsXlem84+Gm20pclR/cQUR4nPSljPtaSBFByAu+5+nWTdl3VCwRdLl0F7xycXQM7ZuXdSrYQjPKt2xe3iUpZ9eaVfxXPLmz6uKVvcnEfthiC6hFHrlA2i6lz2v7nO13ciBhzWwmnPox0kDqQU9MYBg/7gplLzyCXNMFv5w0S5zl5MM4o/pKY45Z3lQLfUZXsHjZYKU2ajKbDZQ1meJS+XL76QJb/N0A/oTxPM= aboyd@Andrews-MacBook-Pro.local
+authorizedKeys: ~
+# authorizedKeys: |
+#   ssh-<key alg> <pub key> <client hostname>
 tailscale:
   enabled: false
   image:
@@ -25,3 +25,4 @@ tailscale:
 nvmInstallEnabled: true
 nvmVersion: v0.39.7
 sdkManInstallEnabled: true
+ohMyZshInstallEnabled: true

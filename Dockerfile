@@ -8,7 +8,7 @@ RUN echo "LANG=en_US.UTF-8" >> /etc/environment
 
 
 RUN apt-get update && \
-  apt-get install -y curl dropbear-bin sudo gcc g++ make python3 zsh vim wget htop nano openssh-client gnupg2 ca-certificates apt-transport-https ncdu tcpdump tldr bat unzip && \
+  apt-get install -y curl dropbear-bin sudo gcc g++ make python3 zsh vim wget htop nano openssh-client gnupg2 ca-certificates apt-transport-https ncdu tcpdump tldr bat unzip zip && \
   apt-get install -y --no-install-recommends git  
 
 # Helm
