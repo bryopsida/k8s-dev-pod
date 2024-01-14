@@ -1,4 +1,4 @@
-FROM ubuntu:kinetic-20230624
+FROM ubuntu:jammy
 ARG COMMIT=""
 ENV COMMIT_SHA=${COMMIT}
 ENV DEBIAN_FRONTEND=noninteractive
@@ -8,7 +8,7 @@ RUN echo "LANG=en_US.UTF-8" >> /etc/environment
 
 
 RUN apt-get update && \
-  apt-get install -y curl dropbear-bin sudo gcc g++ make python3 zsh vim wget htop nano openssh-client gnupg2 ca-certificates apt-transport-https ncdu tcpdump tldr bat && \
+  apt-get install -y curl dropbear-bin sudo gcc g++ make python3 zsh vim wget htop nano openssh-client gnupg2 ca-certificates apt-transport-https ncdu tcpdump tldr bat unzip && \
   apt-get install -y --no-install-recommends git  
 
 # Helm
@@ -25,8 +25,8 @@ RUN apt-get update && \
   apt-get update && \
   apt-get install -y kubectl
 
-
-RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh && \
+# Node global
+RUN curl -sL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh && \
   chmod +x nodesource_setup.sh && \
   ./nodesource_setup.sh && \
   apt-get update &&\

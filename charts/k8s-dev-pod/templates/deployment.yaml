@@ -31,6 +31,15 @@ spec:
       - name: dropbear
         persistentVolumeClaim:
           claimName: {{ .Release.Name }}-dropbear
+      {{- if and .Values.authorizedKeys (not .Values.existingAuthorizedKeySecretName) }}
+      - name: authorized-keys
+        secret:
+          secretName: {{ .Release.Name }}-authorized-keys
+      {{- else if .Values.existingAuthorizedKeySecretName }}
+      - name: authorized-keys
+        secret:
+          secretName: {{ .Values.existingAuthorizedKeySecretName }}
+      {{- end }}
       {{- if .Values.volumes }}
       {{- toYaml .Values.volumes | nindent 8 }}
       {{- end }}
@@ -46,6 +55,12 @@ spec:
           env:
             - name: PASSWORD_LOGIN_ENABLED
               value: "{{ .Values.passwordLoginEnabled }}"
+            - name: NVM_INSTALL_ENABLED
+              value: "{{ .Values.nvmInstallEnabled }}"
+            - name: NVM_VERSION
+              value: "{{ .Values.nvmVersion }}"
+            - name: SDK_MAN_INSTALL_ENABLED
+              value: "{{ .Values.sdkManInstallEnabled }}"
             {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
@@ -62,6 +77,15 @@ spec:
             - name: dropbear
               mountPath: /etc/dropbear
               readOnly: false
+            {{- if or .Values.authorizedKeys .Values.existingAuthorizedKeySecretName }}
+            - name: authorized-keys
+              mountPath: /authorized-keys
+            {{- if .Values.existingAuthorizedKeySecretName }}
+              subPath: public-keys
+            {{- else }}
+              subPath: {{ .Values.existingAuthorizedKeySecretProperty }}
+            {{- end }}
+            {{- end }}
             {{- if .Values.volumeMounts }}
             {{- toYaml .Values.volumeMounts | nindent 12 }}
             {{- end }}
