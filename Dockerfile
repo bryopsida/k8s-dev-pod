@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:22.04
 ARG COMMIT=""
 ENV COMMIT_SHA=${COMMIT}
 ENV DEBIAN_FRONTEND=noninteractive
