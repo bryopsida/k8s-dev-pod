@@ -20,13 +20,15 @@ RUN curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -  && \
 
 # Kubectl
 RUN apt-get update && \
-  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
+  curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
+  chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
+  echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list && \
+  chmod 644 /etc/apt/sources.list.d/kubernetes.list && \
   apt-get update && \
   apt-get install -y kubectl
 
 # Node global
-RUN curl -sL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh && \
+RUN curl -sL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh && \
   chmod +x nodesource_setup.sh && \
   ./nodesource_setup.sh && \
   apt-get update &&\
