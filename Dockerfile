@@ -1,4 +1,4 @@
-FROM ubuntu:noble
+FROM ubuntu:resolute
 ARG COMMIT=""
 ENV COMMIT_SHA=${COMMIT}
 ENV DEBIAN_FRONTEND=noninteractive
